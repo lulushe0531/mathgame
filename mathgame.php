@@ -12,14 +12,18 @@ if(empty($email)) {
 
 $num1=rand(0,20);
 $num2=rand(0,20);
-$count1=0;
-$count2=0;
+
 $answer=$_POST["answer"];
 
-if($answer==($num1+$num2)){
-    $count1=$count1+1;
+if(!isset($answer)){
+    $_SESSION["totalCount"]=0;
+    $_SESSION["success"]=0;
+}else if($answer==$rightAnswer){
+    $msg="<p style='color:green;'>Correct</p>";
+    $_SESSION["totalCount"]++;
+    $_SESSION["success"]++;
 }else{
-    $count2++;
+    $msg="<p style='color:red;'>INCORRECT, $num1 - $num2 is ($num1+$num2).</p>";
 }
 
 if(empty($answer)&&!is_numeric($answer)){
@@ -49,6 +53,7 @@ if(empty($answer)&&!is_numeric($answer)){
         <div class="form-group">
           <div class="col-sm-4 col-sm-offset-3">
             <input type="text" placeholder="Enter answer" name="answer" class="form-control" />
+            <input type="hidden" name="rightAnswer" value="<?php echo $rightAnswer ?>" />
           </div>
         </div>
 
