@@ -14,18 +14,34 @@ if( $_SESSION["authorized"]!="Authorized") {
     }
 }
 
+
+
 if(isset($answer)) {
-    if($answer==($num1+$num2)){
+    if($answer==$temp){
         $_SESSION["count"]++;
+        $msg="<p style='color:green;'>Correct</p>";
+    }
+    else{
+       $msg ="<p style='color:red;'>INCORRECT, $num1 $operator $num2 is $temp.</p>";
     }
     $_SESSION["total"]++;
 }
 
-if(empty($answer)){
-    $msg .="<p style='color:red;'>You must enter a number for your answer.</p>";
+if(!is_numeric($answer)){
+    $msg ="<p style='color:red;'>You must enter a number for your answer.</p>";
     }
 $num1=rand(0,20);
 $num2=rand(0,20);
+$operator = rand(0,1);
+
+if($operator == 1){
+    $operator = '+';
+    $temp = $num1+$num2;
+}
+else{
+    $operator = '-';
+    $temp = $num1-$num2;
+}
 include("include/header.php");
 
 ?>
@@ -42,7 +58,9 @@ include("include/header.php");
       <div class="col-xs-2 col-sm-offset-3">
         <?php echo $num1; ?>
       </div>
-      <div class="col-xs-2">+</div>
+      <div class="col-xs-2">
+        <?php echo $operator; ?>
+      </div>
       <div class="col-xs-2">
         <?php echo $num2; ?>
       </div>
@@ -62,11 +80,18 @@ include("include/header.php");
       <?php
 echo "<input type='hidden' name='num1' value='$num1'/>";
 echo "<input type='hidden' name='num2' value='$num2'/>";
+echo "<input type='hidden' name='temp' value='$temp'/>";
+echo "<input type='hidden' name='operator' value='$operator'/>";
 ?>
         <div class="col-sm-12">
           <div class="col-sm-offset-3">
             Score:
             <?php echo $_SESSION["count"] . "/" . $_SESSION["total"] ?>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="col-sm-offset-3">
+            <?php echo $msg?>
           </div>
         </div>
     </form>
