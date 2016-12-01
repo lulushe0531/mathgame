@@ -4,6 +4,7 @@ include("include/header.php");
 $_SESSION["total"] = 0;
 $_SESSION["count"] = 0;
 $_SESSION["authorized"] = "";
+
 ?>
 
 

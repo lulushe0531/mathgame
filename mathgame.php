@@ -14,22 +14,21 @@ if( $_SESSION["authorized"]!="Authorized") {
     }
 }
 
-
-
 if(isset($answer)) {
     if($answer==$temp){
         $_SESSION["count"]++;
         $msg="<p style='color:green;'>Correct</p>";
     }
     else{
-       $msg ="<p style='color:red;'>INCORRECT, $num1 $operator $num2 is $temp.</p>";
+        $msg ="<p style='color:red;'>INCORRECT, $num1 $operator $num2 is $temp.</p>";
     }
     $_SESSION["total"]++;
 }
 
-if(!is_numeric($answer)){
+if(!is_numeric($answer)&&isset($answer)){
     $msg ="<p style='color:red;'>You must enter a number for your answer.</p>";
     }
+
 $num1=rand(0,20);
 $num2=rand(0,20);
 $operator = rand(0,1);
@@ -51,7 +50,7 @@ include("include/header.php");
       <h1>Math Game</h1>
     </div>
     <div class="col-xs-offset-10">
-      <a class="btn btn-primary" href="index.php">Logout</a>
+      <a class="btn btn-primary" href="logout.php">Logout</a>
     </div>
 
     <div class="row">
